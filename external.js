@@ -38,7 +38,7 @@ function playRound(playerSelection, computerSelection) {
         } else if (res.charAt(4) === 'l'){
             computerScore++;
         } else {
-            return 'Please try again';
+            console.log("Please try again");
         }
       }
       if(playerScore === '5'){
