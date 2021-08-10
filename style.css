@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    min-height: 80vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.title {
+    flex-direction: column;
+    display: flex;
+    min-height: 15vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.result {
+    display: flex;
+    justify-content: center;
+    margin-top: -150px;
+}
