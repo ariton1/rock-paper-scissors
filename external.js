@@ -1,49 +1,61 @@
-function computerPlay(){
-    const choice = ['rock', 'paper', 'scissors'];
-    return choice[Math.floor(Math.random() * choice.length)];
-}
-let playerScore = 0;
-let computerScore = 0;
+  const choices = document.querySelectorAll('.choices');
+  const resetval = document.querySelector('.resetval');
+  const result = document.querySelector('.result');
+  let playerScore = 0;
+  let computerScore = 0;
+  choices.forEach((choice) => {
+      choice.addEventListener('click', (e) => {
+        const playerChoice = e.target.textContent;
 
-function playRound(playerSelection, computerSelection) {
-    if(playerSelection === 'rock' && computerSelection === 'scissors'){
-        return 'You win! Rock beats Scissors.'
-    } else if(playerSelection === 'scissors' && computerSelection === 'paper'){
-        return 'You win! Scissors beats Paper.'
-    } else if(playerSelection === 'paper' && computerSelection === 'rock'){
-        return 'You win! Paper beats Rock'
-    } else if(playerSelection === 'rock' && computerSelection === 'paper'){
-        return 'You lose! Paper beats Rock'
-    } else if(playerSelection === 'scissors' && computerSelection === 'rock'){
-        return 'You lose! Rock beats Scissors'
-    } else if(playerSelection === 'paper' && computerSelection === 'scissors'){
-        return 'You lose! Scissors beats Paper'
-    } else if(playerSelection !== 'rock' || playerSelection !== 'paper' || playerSelection !== "scissors"){
-        return 'You did not enter a valid choice'
+        const compOptions = ['Rock', 'Paper', 'Scissors'];
+        const computerChoice = compOptions[Math.floor(Math.random() * compOptions.length)];
+        playRound(playerChoice, computerChoice);
+		checkWinner()
+		updateScore();
+
+      })
+  });
+
+  function playRound(playerSelection, computerSelection) {
+    if(playerSelection === 'Rock' && computerSelection === 'Scissors'){
+      result.textContent = "Computer used Scissors. You win!";
+	  playerScore++;
+    } else if(playerSelection === 'scissors' && computerSelection === 'Paper'){
+      result.textContent = "Computer used Paper. You win!";
+	  playerScore++;
+    } else if(playerSelection === 'Paper' && computerSelection === 'Rock'){
+      result.textContent = "Computer used Rock. You win!";
+	  playerScore++;
+    } else if(playerSelection === 'Rock' && computerSelection === 'Paper'){
+      result.textContent = "Computer used Rock. You lose!";
+	  computerScore++;
+    } else if(playerSelection === 'Scissors' && computerSelection === 'Rock'){
+      result.textContent = "Computer used Scissors. You lose!";
+	  computerScore++;
+    } else if(playerSelection === 'Paper' && computerSelection === 'Scissors'){
+      result.textContent = "Computer used Paper. You lose!";
+	  computerScore++;
     } else {
-        return 'It\'s a draw'
+      result.textContent = `Computer used ${computerSelection}, it is a draw!`;
     }
   }
+  function resetValues(){
+    playerScore = 0;
+    computerScore = 0;
+	document.getElementById("playerScore").textContent = 0;
+	document.getElementById("computerScore").textContent = 0;
+	document.getElementById("winner").textContent = '';
+  }
 
-  function game(){
-      while(playerScore !== 5 && computerScore !== 5){
-        let playerSelection = prompt().toLowerCase();
-        let computerSelection = computerPlay();
+  function updateScore(){
+	document.getElementById("playerScore").textContent = playerScore;
+	document.getElementById("computerScore").textContent = computerScore;
+  }
 
-        playRound(playerSelection, computerSelection)
-        let res = playRound(playerSelection, computerSelection);
-        console.log(res);
-        if(res.charAt(4) === 'w'){
-            playerScore++;
-        } else if (res.charAt(4) === 'l'){
-            computerScore++;
-        } else {
-            console.log("Please try again");
-        }
-      }
-      if(playerScore === '5'){
-          return 'You Win'
-      } else {
-          return 'You Lose'
-      }
+  function checkWinner(){
+	  if(playerScore === 5){
+		document.getElementById("winner").textContent = 'You win!'
+	  } else if(computerScore === 5){
+		document.getElementById("winner").textContent = 'Computer wins!'
+	  }
   }
